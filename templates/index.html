@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Link Shortener</title>
+  </head>
+
+  <body>
+    <h1>Shortern a link</h1>
+
+    <form method="POST" action="/">
+      {% csrf_token %}
+      <div class="control-group {% if error %}error{% endif %}">
+        <input
+          type="text"
+          name="url"
+          placeholder="http://google.com"
+          value="{% if url %}{{ url }}{% endif %}"
+        />
+
+        {% if error %}
+        <span>Please enter a valid URL</span>
+        {% endif %}
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    {% if shorturl %}
+    <h2>Success!</h2>
+    <p>
+      Shortened URL: <a href="{{ shorturl }}">{{ shorturl }}</a>
+    </p>
+    {% endif %}
+  </body>
+</html>
